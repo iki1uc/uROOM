@@ -1,0 +1,27 @@
+<RAUME.gitter.punkt.INTERPRETER>
+    <STATE>ACTIVE</STATE>
+    <MODE>RAW</MODE>
+
+    <INPUT>RAW.raw</INPUT>
+
+    <PARSE>
+        <META>[ZEROCORE, ZEROULTRA, ULTRAZERO]</META>
+        <AXIS>[Horizont, Breite, Tiefe]</AXIS>
+        <MODULE>[HELP.me, ERROR.me, GHOST.me]</MODULE>
+        <EVO>12X</EVO>
+        <SCORE>>=91%</SCORE>
+        <FORM>pcta³</FORM>
+    </PARSE>
+
+    <MAP>
+        RAW.raw → RAUME.gitter.punkt
+        RAUME.gitter.punkt → ULTRA.SYSTEM
+        ULTRA.SYSTEM → HELP/ERROR/GHOST
+    </MAP>
+
+    <OUTPUT>
+        <WERTIGKEIT>AUTO-CALC</WERTIGKEIT>
+        <BEAM-ID>AUTO</BEAM-ID>
+        <STATE>TRUE</STATE>
+    </OUTPUT>
+</RAUME.gitter.punkt.INTERPRETER>
