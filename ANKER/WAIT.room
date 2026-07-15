@@ -1,1 +1,12 @@
+<WAIT.SYSTEM>
+    <LOAD>GATE</LOAD>
+    <LOAD>WURM.IN</LOAD>
+    <LOAD>WURM.OUT</LOAD>
+
+    <STATE>active</STATE>
+    <SYNC>true</SYNC>
+
+    <PIPE>h1 → e3 → o6 → o9 → b12 → win∞</PIPE>
+    <CORE>o_meta(x)</CORE>
+</WAIT.SYSTEM>
 
