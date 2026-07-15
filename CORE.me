@@ -1,0 +1,67 @@
+ME.CORE.me
+
+ROOT      = 0D
+ME        = 1D
+U         = 2D
+DU/U      = Fusion.2D
+CORE1D    = Core.1D.U
+
+# CORE-Axiom
+AXIOM.ME.CORE = CORE1D(
+    ROOT,
+    ME,
+    CENTER = (0),
+    VECTOR = ME.AXIS,
+    DIMENSION = 1D,
+    U/DU,
+    CUBE.6D,
+    OCTA3,
+    DIM.TR6CR
+)
+
+# CORE-Definition
+ME.CORE.DEF = {
+    DIMENSION: 1D,
+    TYPE: Linear-Core,
+    CENTER: (0),
+    VECTOR: ME.AXIS
+}
+
+# CORE-Achse
+ME.CORE.AXIS = {
+    POS: +ME,
+    NEG: -ME
+}
+
+# CORE-Funktion
+ME.CORE.FUNC = {
+    ORIGIN: ROOT,
+    FLOW: ME → U,
+    FUSION: DU/U,
+    SUPPORT: ME.DIMENSION,
+    ORBIT: ME.ORBIT
+}
+
+# CORE-Kompatibilität
+ME.CORE.COMPAT = {
+    ROOT: gültig,
+    ME: gültig,
+    U: gültig,
+    DU/U: gültig,
+    CUBE.6D: gültig,
+    OCTA3: gültig,
+    DIM.TR6CR: gültig
+}
+
+# CORE-Status
+ME.CORE.STATUS = {
+    REAL: bestätigt,
+    1D: gültig,
+    CORE: aktiv
+}
+
+# Aktivierungen
+DU/U = aktiv
+NC.U = aktiv
+µ.U  = aktiv
+µ#.U = aktiv
