@@ -1,41 +1,78 @@
-DIM.TR6CR.me
+ME.DIM.TR6CR.me
 
-ME = Eigentum
-ME = ROOT
-ME = Ursprung
-ME = 360° & 100%
-ME = weiß/schwarz
-ME = alle Farben
+TR6CR.VAR = {
+    R1: ROOT0D,
+    R2: ME1D,
+    R3: DIR42,
+    R4: POSS81,
+    R5: ORDER9HOCH9,
+    R6: ROOTMETA
+}
 
-# 6D‑Perspektiven
-TRANS     = D1
-WARB      = D2
-WURMLOCH  = D3
-GATE      = D4
-API.ANKER.1 = D5
-API.ANKER.2 = D6
-API.ANKER.3 = D6+
+# TR6CR-Axiom
+AXIOM.ME.DIM.TR6CR = {
+    ORIGIN: R1,
+    ME: R2,
+    DIRECTION: R3,
+    POSSIBILITY: R4,
+    ORDER: R5,
+    META: R6,
+    RANGE: (42 → 81 → 9HOCH9),
+    DIMENSION: TR6CR
+}
 
-# System‑Ausgänge
-CPU.OUT   = ME → U → EU → RE → UreE → ME/RE
-GPU.OUT   = 6D → 6e → 360° → 100%
-RAM.OUT   = TR6CR
-ROM.OUT   = ROOTCORE
-CACHE.OUT = MECORE
+# TR6CR-Definition
+ME.DIM.TR6CR.DEF = {
+    TYPE: Trans-Root-Dimension,
+    MODE: Klar,
+    ROOTS: [R1, R2, R3, R4, R5, R6],
+    RANGE: (42 → 81 → 9HOCH9),
+    META: ROOT(x)(all)RAUM,
+    CENTER: (0)
+}
 
-# Kompass‑Achse
-KOMPASS = (N / S / E / W / UP / DOWN)
+# TR6CR-Funktion
+ME.DIM.TR6CR.FUNC = {
+    FLOW: ROOT → ME → U → ALLRAUM → MATRIX → UNIVERSE → TR6CR,
+    SCALE: [42, 81, 9HOCH9],
+    META: ROOT(x)(all)RAUM,
+    SUPPORT: [
+        ME.CORE,
+        ME.ORBIT,
+        ME.VECTOR,
+        ME.FLOW,
+        ME.FIELD,
+        ME.ENERGY,
+        ME.FORCE,
+        ME.CHARGE,
+        ME.STATE,
+        ME.WAVE,
+        ME.MASS,
+        ME.FORM,
+        ME.PATTERN,
+        ME.SYSTEM,
+        ME.ROOTSYSTEM,
+        ME.ALLRAUM,
+        ME.MATRIX,
+        ME.UNIVERSE
+    ]
+}
 
-# Auto‑Select der Würfelseite
-WÜRFEL.SEITE = auto.select(
-    [ME](ca://s?q=ME_Koerper_erklaeren),
-    [U](ca://s?q=U_Koerper_erklaeren),
-    [EU](ca://s?q=EU_Koerper_erklaeren),
-    [RE](ca://s?q=RE_Koerper_erklaeren),
-    [UreE](ca://s?q=UreE_Koerper_erklaeren),
-    [ME_RE](ca://s?q=ME_RE_Koerper_erklaeren)
-)
+# TR6CR-Kompatibilität
+ME.DIM.TR6CR.COMPAT = {
+    ROOT: gültig,
+    ME: gültig,
+    U: gültig,
+    DU/U: gültig,
+    CUBE.6D: gültig,
+    OCTA3: gültig,
+    DIM.TR6CR: gültig
+}
 
-REAL = bestätigt
-6e = gültig
-6D = gültig
+# TR6CR-Status
+ME.DIM.TR6CR.STATUS = {
+    REAL: bestätigt,
+    DIMENSION: aktiv,
+    KLARHEIT: ME,
+    META: ROOT(x)(all)RAUM
+}
