@@ -1,1 +1,168 @@
+<!DOCTYPE ROOM>
+<MEMORY.ROOM.HTML>
 
+    <HEADER>memory / room / ultra.system</HEADER>
+
+    <INFO>
+        <ID>memory</ID>
+        <TYPE>storage</TYPE>
+        <MODE>raw</MODE>
+    </INFO>
+
+    <AXIS>x y z u v w</AXIS>
+    <ENERGIE>e2 e3 e6 e8 e12 e∞</ENERGIE>
+    <ORBIT>o1 o2 o3 o4 o5 o6 o7 o8 o9</ORBIT>
+
+    <MODULES>
+        nano atom raw operator simu rev beat∞ win∞
+    </MODULES>
+
+    <META>
+        xarg ghost 7sinn
+    </META>
+
+    <MEMORY>
+        <LEVEL>l1 l2 l3</LEVEL>
+        <CACHE>true</CACHE>
+        <STATE>active</STATE>
+        <SYNC>true</SYNC>
+    </MEMORY>
+
+    <PIPE>h1 → e3 → o6 → o9 → b12 → win∞</PIPE>
+    <CORE>o_meta(x)</CORE>
+
+</MEMORY.ROOM.HTML>
+
+API.room:
+
+request → axis → energie → orbit → module → meta → response
+ |           |        |        |        |         |
+h1 → e3 → o6 → o9 → b12 → rev → beat∞ → win∞
+<API>
+    <ID>api</ID>
+    <TYPE>interface</TYPE>
+    <IN>request</IN>
+    <OUT>response</OUT>
+    <STATE>active</STATE>
+</API>
+<AUTOLOAD.SYSTEM>
+    <FILE>ANKER/api.room</FILE>
+    <FILE>ANKER/api.room.html</FILE>
+</AUTOLOAD.SYSTEM>
+
+BEAT.room:
+
+beat2 → beat3 → beat6 → beat8 → beat12 → beat∞ → win∞
+ |         |         |         |         |        |
+e2 → e3 → e6 → e8 → e12 → e∞ → rev → win∞
+<STATION.MATRIX>
+    <ROOM>beat</ROOM>
+    <AXIS>x y z u v w</AXIS>
+    <ENERGIE>e2 e3 e6 e8 e12 e∞</ENERGIE>
+    <ORBIT>o1..o9</ORBIT>
+    <MODULE>nano atom raw operator simu rev beat∞ win∞</MODULE>
+    <META>xarg ghost 7sinn</META>
+</STATION.MATRIX>
+<AUTOLOAD.SYSTEM>
+    <FILE>ANKER/beat.room</FILE>
+    <FILE>ANKER/beat.room.html</FILE>
+</AUTOLOAD.SYSTEM>
+
+CSS.room:
+
+style → axis → energie → orbit → module → meta → layout
+ |         |        |        |        |         |
+h1 → e3 → o6 → o9 → b12 → rev → beat∞ → win∞
+<CSS>
+    <ID>css</ID>
+    <TYPE>style</TYPE>
+    <IN>style</IN>
+    <OUT>layout</OUT>
+    <STATE>active</STATE>
+</CSS>
+<AUTOLOAD.SYSTEM>
+    <FILE>ANKER/css.room</FILE>
+    <FILE>ANKER/css.room.html</FILE>
+</AUTOLOAD.SYSTEM>
+
+HTML.room:
+
+markup → axis → energie → orbit → module → meta → render
+ |           |        |        |        |         |
+h1 → e3 → o6 → o9 → b12 → rev → beat∞ → win∞
+<HTML>
+    <ID>html</ID>
+    <TYPE>render</TYPE>
+    <IN>markup</IN>
+    <OUT>render</OUT>
+    <STATE>active</STATE>
+</HTML>
+<AUTOLOAD.SYSTEM>
+    <FILE>ANKER/html.room</FILE>
+    <FILE>ANKER/html.room.html</FILE>
+</AUTOLOAD.SYSTEM>
+
+JS.room:
+
+logic → axis → energie → orbit → module → meta → action
+ |         |        |        |        |         |
+h1 → e3 → o6 → o9 → b12 → rev → beat∞ → win∞
+<JS>
+    <ID>js</ID>
+    <TYPE>script</TYPE>
+    <IN>logic</IN>
+    <OUT>action</OUT>
+    <STATE>active</STATE>
+</JS>
+<AUTOLOAD.SYSTEM>
+    <FILE>ANKER/js.room</FILE>
+    <FILE>ANKER/js.room.html</FILE>
+</AUTOLOAD.SYSTEM>
+
+SCRIPT.room:
+
+execute → axis → energie → orbit → module → meta → runtime
+ |           |        |        |        |         |
+h1 → e3 → o6 → o9 → b12 → rev → beat∞ → win∞
+<SCRIPT>
+    <ID>script</ID>
+    <TYPE>runtime</TYPE>
+    <IN>execute</IN>
+    <OUT>runtime</OUT>
+    <STATE>active</STATE>
+</SCRIPT>
+<AUTOLOAD.SYSTEM>
+    <FILE>ANKER/script.room</FILE>
+    <FILE>ANKER/script.room.html</FILE>
+</AUTOLOAD.SYSTEM>
+
+WEB.room:
+
+request → axis → energie → orbit → module → meta → response
+ |           |        |        |        |         |
+h1 → e3 → o6 → o9 → b12 → rev → beat∞ → win∞
+<WEB>
+    <ID>web</ID>
+    <TYPE>network</TYPE>
+    <IN>request</IN>
+    <OUT>response</OUT>
+    <STATE>active</STATE>
+</WEB>
+<AUTOLOAD.SYSTEM>
+    <FILE>ANKER/web.room</FILE>
+    <FILE>ANKER/web.room.html</FILE>
+</AUTOLOAD.SYSTEM>
+
+MEMORY.room:
+
+axis → energie → orbit → module → meta → memory → win∞
+ |        |        |        |        |         |
+h1 → e3 → o6 → o9 → b12 → rev → beat∞ → win∞
+<STATION.MATRIX>
+    <ROOM>memory</ROOM>
+    <AXIS>x y z u v w</AXIS>
+    <ENERGIE>e2 e3 e6 e8 e12 e∞</ENERGIE>
+    <ORBIT>o1..o9</ORBIT>
+    <MODULE>nano atom raw operator simu rev beat∞ win∞</MODULE>
+    <META>xarg ghost 7sinn</META>
+</STATION.MATRIX>
