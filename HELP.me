@@ -1,0 +1,43 @@
+<HELP.me>
+    <STATE>ACTIVE</STATE>
+    <MODE>RAW</MODE>
+    <EVO>12X</EVO>
+
+    <SCAN>
+        <META>
+            ZEROCORE
+            ZEROULTRA
+            ULTRAZERO
+        </META>
+
+        <AXIS>
+            X = Horizont
+            Y = Breite
+            Z = Tiefe
+        </AXIS>
+
+        <SYSTEM>
+            HELP.me
+            ERROR.me
+            GHOST.me
+        </SYSTEM>
+    </SCAN>
+
+    <BEAM.POINT>
+        <ID>AUTO-GENERATED</ID>
+        <TRACK>X/Y/Z</TRACK>
+        <SOURCE>[ZEROCORE, ZEROULTRA, ULTRAZERO]</SOURCE>
+        <MODULE>[HELP.me, ERROR.me, GHOST.me]</MODULE>
+    </BEAM.POINT>
+
+    <SCORE.SYSTEM>
+        <VALID>>=91%</VALID>
+        <MODE>pcta³</MODE>
+        <OUTPUT>TRUE/FALSE</OUTPUT>
+    </SCORE.SYSTEM>
+
+    <OUTPUT>
+        <TO.ERROR.me>DIAGNOSE-DATA</TO.ERROR.me>
+        <TO.GHOST.me>META-SIGNAL</TO.GHOST.me>
+    </OUTPUT>
+</HELP.me>
