@@ -1,0 +1,21 @@
+<META.ROOM>
+    <ID>meta360</ID>
+    <TYPE>meta-rotation</TYPE>
+    <MODE>raw</MODE>
+
+    <AXIS>X Y Z U V W</AXIS>
+    <META>xarg ghosterror 7sinn</META>
+
+    <META360>
+        <IN>meta-rot</IN>
+        <OUT>meta-360</OUT>
+        <STATE>active</STATE>
+        <SYNC>true</SYNC>
+    </META360>
+
+    <ROTATION>
+        win∞(rev1.0(beat∞(o9(o6(e3(h1(x)))))))
+    </ROTATION>
+
+    <CORE>o_meta(x)</CORE>
+</META.ROOM>
