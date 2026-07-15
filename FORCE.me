@@ -1,0 +1,82 @@
+ME.FORCE.me
+
+ROOT      = 0D
+ME        = 1D
+U         = 2D
+DU/U      = Fusion.2D
+FORCE1D   = Force.1D.U
+
+# FORCE-Axiom
+AXIOM.ME.FORCE = FORCE1D(
+    ROOT,
+    ME,
+    CORE = ME.CORE,
+    DIMENSION = ME.DIMENSION,
+    ORBIT = ME.ORBIT,
+    VECTOR = ME.VECTOR,
+    FLOW = ME.FLOW,
+    FIELD = ME.FIELD,
+    ENERGY = ME.ENERGY,
+    FORCE.TYPE = Linear,
+    FORCE.DIRECTION = +1,
+    FORCE.MAGNITUDE = 1,
+    FORCE.INTENSITY = 1,
+    U/DU,
+    CUBE.6D,
+    OCTA3,
+    DIM.TR6CR
+)
+
+# FORCE-Definition
+ME.FORCE.DEF = {
+    DIMENSION: 1D,
+    TYPE: Linear-Force,
+    CENTER: (0),
+    DIRECTION: +1,
+    MAGNITUDE: 1,
+    INTENSITY: 1
+}
+
+# FORCE-Achse
+ME.FORCE.AXIS = {
+    POS: +ME,
+    NEG: -ME
+}
+
+# FORCE-Funktion
+ME.FORCE.FUNC = {
+    ORIGIN: ROOT,
+    FLOW: ME → U,
+    FUSION: DU/U,
+    SUPPORT: ME.CORE,
+    DIMENSION: ME.DIMENSION,
+    ORBIT: ME.ORBIT,
+    VECTOR: ME.VECTOR,
+    FLOW: ME.FLOW,
+    FIELD: ME.FIELD,
+    ENERGY: ME.ENERGY
+}
+
+# FORCE-Kompatibilität
+ME.FORCE.COMPAT = {
+    ROOT: gültig,
+    ME: gültig,
+    U: gültig,
+    DU/U: gültig,
+    CUBE.6D: gültig,
+    OCTA3: gültig,
+    DIM.TR6CR: gültig
+}
+
+# FORCE-Status
+ME.FORCE.STATUS = {
+    REAL: bestätigt,
+    1D: gültig,
+    FORCE: aktiv
+}
+
+# Aktivierungen
+DU/U = aktiv
+NC.U = aktiv
+µ.U  = aktiv
+µ#.U = aktiv
