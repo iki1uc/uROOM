@@ -1,0 +1,90 @@
+ME.MASS.me
+
+ROOT      = 0D
+ME        = 1D
+U         = 2D
+DU/U      = Fusion.2D
+MASS1D    = Mass.1D.U
+
+# MASS-Axiom
+AXIOM.ME.MASS = MASS1D(
+    ROOT,
+    ME,
+    CORE = ME.CORE,
+    DIMENSION = ME.DIMENSION,
+    ORBIT = ME.ORBIT,
+    VECTOR = ME.VECTOR,
+    FLOW = ME.FLOW,
+    FIELD = ME.FIELD,
+    ENERGY = ME.ENERGY,
+    FORCE = ME.FORCE,
+    CHARGE = ME.CHARGE,
+    STATE = ME.STATE,
+    WAVE = ME.WAVE,
+    MASS.TYPE = Linear,
+    MASS.DENSITY = 1,
+    MASS.WEIGHT = 1,
+    MASS.STABILITY = Stable,
+    U/DU,
+    CUBE.6D,
+    OCTA3,
+    DIM.TR6CR
+)
+
+# MASS-Definition
+ME.MASS.DEF = {
+    DIMENSION: 1D,
+    TYPE: Linear-Mass,
+    DENSITY: 1,
+    WEIGHT: 1,
+    STABILITY: Stable,
+    CENTER: (0)
+}
+
+# MASS-Achse
+ME.MASS.AXIS = {
+    POS: +ME,
+    NEG: -ME
+}
+
+# MASS-Funktion
+ME.MASS.FUNC = {
+    ORIGIN: ROOT,
+    FLOW: ME → U,
+    FUSION: DU/U,
+    SUPPORT: ME.CORE,
+    DIMENSION: ME.DIMENSION,
+    ORBIT: ME.ORBIT,
+    VECTOR: ME.VECTOR,
+    FLOW: ME.FLOW,
+    FIELD: ME.FIELD,
+    ENERGY: ME.ENERGY,
+    FORCE: ME.FORCE,
+    CHARGE: ME.CHARGE,
+    STATE: ME.STATE,
+    WAVE: ME.WAVE
+}
+
+# MASS-Kompatibilität
+ME.MASS.COMPAT = {
+    ROOT: gültig,
+    ME: gültig,
+    U: gültig,
+    DU/U: gültig,
+    CUBE.6D: gültig,
+    OCTA3: gültig,
+    DIM.TR6CR: gültig
+}
+
+# MASS-Status
+ME.MASS.STATUS = {
+    REAL: bestätigt,
+    1D: gültig,
+    MASS: aktiv
+}
+
+# Aktivierungen
+DU/U = aktiv
+NC.U = aktiv
+µ.U  = aktiv
+µ#.U = aktiv
