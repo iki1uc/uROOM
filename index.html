@@ -2,10 +2,10 @@
 <ULTRA.SYSTEM>
 
     <HEADER>
-        <TITLE>ME / ULTRA.SYSTEM / pcta² + pcta³ / BETA</TITLE>
+        <TITLE>ME / ULTRA.SYSTEM / pcta² + pcta³ / BETA‑1.02</TITLE>
         <MODE>RAW</MODE>
         <VALID>TRUE</VALID>
-        <VERSION>BETA-1.0</VERSION>
+        <VERSION>BETA-1.02</VERSION>
     </HEADER>
 
     <!-- META-RÄUME -->
@@ -15,38 +15,55 @@
         <ULTRAZERO>Null-Ultra-Raum</ULTRAZERO>
     </META-SPACE>
 
-    <!-- ACHSEN -->
+    <!-- ACHSEN (6D) -->
     <AXIS>
         <X>Horizont</X>
         <Y>Breite</Y>
         <Z>Tiefe</Z>
+        <U>Ultra</U>
+        <V>Vector</V>
+        <W>Wert</W>
     </AXIS>
 
-    <!-- RAUME.GITTER.PUNKT (NEU IN BETA) -->
-    <RAUME.gitter.punkt>
-        <POINT-ID>AUTO-RAUM</POINT-ID>
-        <COORD>X/Y/Z</COORD>
+    <!-- ULTRA-GITTER (NEU IN BETA‑1.02) -->
+    <ULTRA.GITTER>
+        <POINT-ID>AUTO-GITTER</POINT-ID>
+        <COORD>X/Y/Z/U/V/W</COORD>
         <META>[ZEROCORE, ZEROULTRA, ULTRAZERO]</META>
         <SINN>[HELP.me, ERROR.me, GHOST.me]</SINN>
         <MODE>pcta³</MODE>
-        <EVO>12X</EVO>
-        <WERT>AUTO-CALC</WERT>
-    </RAUME.gitter.punkt>
+        <EVO>24X</EVO>
+        <WERT>AUTO-WERTIGKEIT</WERT>
+    </ULTRA.GITTER>
+
+    <!-- META-SPEICHER (NEU IN BETA‑1.02) -->
+    <META.SPEICHER>
+        <STATE>ACTIVE</STATE>
+        <MODE>RAW</MODE>
+        <STORE>
+            <META>[ZEROCORE, ZEROULTRA, ULTRAZERO]</META>
+            <AXIS>[X, Y, Z, U, V, W]</AXIS>
+            <MODULE>[HELP.me, ERROR.me, GHOST.me]</MODULE>
+            <EVO>24X</EVO>
+            <SCORE>>=91%</SCORE>
+        </STORE>
+        <OUTPUT>RECALL</OUTPUT>
+    </META.SPEICHER>
 
     <!-- SYSTEM-MODULE -->
     <SYSTEM-MODULE>
-        <HELP.me LINK="RAUME.gitter.punkt">Diagnose-Modul</HELP.me>
-        <ERROR.me LINK="RAUME.gitter.punkt">Fehler-Modul</ERROR.me>
-        <GHOST.me LINK="RAUME.gitter.punkt">Meta-Sinn-Modul</GHOST.me>
+        <HELP.me LINK="ULTRA.GITTER">Diagnose-Modul</HELP.me>
+        <ERROR.me LINK="ULTRA.GITTER">Fehler-Modul</ERROR.me>
+        <GHOST.me LINK="ULTRA.GITTER">Meta-Sinn-Modul</GHOST.me>
     </SYSTEM-MODULE>
 
     <!-- BEAM.POINT -->
     <BEAM.POINT>
         <ID>AUTO</ID>
-        <TRACK>X/Y/Z</TRACK>
+        <TRACK>X/Y/Z/U/V/W</TRACK>
         <META>[ZEROCORE, ZEROULTRA, ULTRAZERO]</META>
         <SYSTEM>[HELP.me, ERROR.me, GHOST.me]</SYSTEM>
-        <GITTER>RAUME.gitter.punkt</GITTER>
+        <GITTER>ULTRA.GITTER</GITTER>
     </BEAM.POINT>
 
     <!-- SCORE-SYSTEM -->
@@ -54,21 +71,22 @@
         <VALID>>=91%</VALID>
         <MODE>pcta³</MODE>
         <RANGE>0–100</RANGE>
-        <EVO>12X</EVO>
+        <EVO>24X</EVO>
         <OUTPUT>TRUE/FALSE</OUTPUT>
-        <GITTER>RAUME.gitter.punkt</GITTER>
+        <GITTER>ULTRA.GITTER</GITTER>
     </SCORE.SYSTEM>
 
-    <!-- EVO-ENGINE -->
-    <EVO.12X>
-        <LAYER>12</LAYER>
+    <!-- EVO-ENGINE (24X, 6D) -->
+    <EVO.24X>
+        <LAYER>24</LAYER>
         <MODE>Ultra</MODE>
         <META>pcta³</META>
         <INPUT>[ZEROCORE, ZEROULTRA, ULTRAZERO]</INPUT>
+        <DIM>[X, Y, Z, U, V, W]</DIM>
         <OUTPUT>Klarheit</OUTPUT>
         <SYSTEM>[HELP.me, ERROR.me, GHOST.me]</SYSTEM>
-        <GITTER>RAUME.gitter.punkt</GITTER>
-    </EVO.12X>
+        <GITTER>ULTRA.GITTER</GITTER>
+    </EVO.24X>
 
     <!-- 3x3 MATRIX -->
     <ULTRA.3x3.MATRIX>
@@ -83,18 +101,3 @@
             <A2>ZEROULTRA</A2>
             <A3>ULTRAZERO</A3>
         </META>
-
-        <SYSTEM>
-            <S1>HELP.me</S1>
-            <S2>ERROR.me</S2>
-            <S3>GHOST.me</S3>
-        </SYSTEM>
-
-        <FORM>pcta³</FORM>
-        <MODE>RAW</MODE>
-        <EVO>12X</EVO>
-        <SCORE>91%</SCORE>
-        <GITTER>RAUME.gitter.punkt</GITTER>
-    </ULTRA.3x3.MATRIX>
-
-</ULTRA.SYSTEM>
