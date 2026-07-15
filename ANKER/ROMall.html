@@ -1,1 +1,117 @@
+<!DOCTYPE META-BETA>
+<ROMALL.SYSTEM>
+
+    <HEADER>
+        <TITLE>ROMall / ROOM-Bibliothek / ULTRA.SYSTEM</TITLE>
+        <MODE>raw</MODE>
+        <VERSION>1.0</VERSION>
+    </HEADER>
+
+    <META-GRAFIK>
+        <PIPE>h1 → e3 → o6 → o9 → b12 → win∞</PIPE>
+        <CORE>o_meta(x)</CORE>
+        <AXIS>x y z u v w</AXIS>
+        <ENERGIE>e2 e3 e6 e8 e12 e∞</ENERGIE>
+        <ORBIT>o1..o9</ORBIT>
+    </META-GRAFIK>
+
+    <ROOMS>
+
+        <CPU>
+            <ID>cpu</ID>
+            <TYPE>core</TYPE>
+            <STATE>active</STATE>
+        </CPU>
+
+        <CACHE>
+            <ID>cache</ID>
+            <TYPE>memory</TYPE>
+            <LEVEL>l1 l2 l3</LEVEL>
+        </CACHE>
+
+        <MEMORY>
+            <ID>memory</ID>
+            <TYPE>storage</TYPE>
+            <LEVEL>l1 l2 l3</LEVEL>
+        </MEMORY>
+
+        <IO>
+            <ID>io</ID>
+            <TYPE>interface</TYPE>
+            <IN>input</IN>
+            <OUT>output</OUT>
+        </IO>
+
+        <BEAT>
+            <ID>beat</ID>
+            <TYPE>energy</TYPE>
+            <LEVEL>beat2 beat3 beat6 beat8 beat12</LEVEL>
+        </BEAT>
+
+        <REV>
+            <ID>rev</ID>
+            <TYPE>matter</TYPE>
+            <LEVEL>rev0.877 rev1.0</LEVEL>
+        </REV>
+
+        <WIN>
+            <ID>win</ID>
+            <TYPE>final</TYPE>
+            <LEVEL>win∞</LEVEL>
+        </WIN>
+
+        <SIMU>
+            <ID>simu</ID>
+            <TYPE>simulation</TYPE>
+            <LEVEL>w128 w128raw</LEVEL>
+        </SIMU>
+
+        <ATOM>
+            <ID>atom</ID>
+            <TYPE>orbit</TYPE>
+            <LEVEL>eigenorbit</LEVEL>
+        </ATOM>
+
+        <NANO>
+            <ID>nano</ID>
+            <TYPE>measure</TYPE>
+            <LEVEL>t6d6e</LEVEL>
+        </NANO>
+
+        <META>
+            <ID>meta</ID>
+            <TYPE>logic</TYPE>
+            <LEVEL>meta∞</LEVEL>
+        </META>
+
+        <GHOST>
+            <ID>ghost</ID>
+            <TYPE>instability</TYPE>
+            <LEVEL>ghosterror</LEVEL>
+        </GHOST>
+
+        <XARG>
+            <ID>xarg</ID>
+            <TYPE>analysis</TYPE>
+            <LEVEL>fehleranalyse</LEVEL>
+        </XARG>
+
+        <SINN7>
+            <ID>7sinn</ID>
+            <TYPE>meta</TYPE>
+            <LEVEL>meta7</LEVEL>
+        </SINN7>
+
+    </ROOMS>
+
+    <GRAPHIK>
+        <MAP>
+            cpu → cache → memory → io
+            io → beat → rev → win
+            win → simu → atom → nano
+            nano → meta → ghost → xarg → 7sinn
+        </MAP>
+    </GRAPHIK>
+
+</ROMALL.SYSTEM>
 
