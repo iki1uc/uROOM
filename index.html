@@ -8,14 +8,12 @@
         <VERSION>BETA-1.02</VERSION>
     </HEADER>
 
-    <!-- META-RÄUME -->
     <META-SPACE>
         <ZEROCORE>Null-Kern</ZEROCORE>
         <ZEROULTRA>Ultra-Null-Raum</ZEROULTRA>
         <ULTRAZERO>Null-Ultra-Raum</ULTRAZERO>
     </META-SPACE>
 
-    <!-- ACHSEN (6D) -->
     <AXIS>
         <X>Horizont</X>
         <Y>Breite</Y>
@@ -25,7 +23,13 @@
         <W>Wert</W>
     </AXIS>
 
-    <!-- ULTRA-GITTER -->
+    <VERIFY>
+        <B>verify.B.html</B>
+        <H>verify.H.html</H>
+        <T>verify.T.html</T>
+        <XALL>698869.html</XALL>
+    </VERIFY>
+
     <ULTRA.GITTER>
         <POINT-ID>AUTO-GITTER</POINT-ID>
         <COORD>X/Y/Z/U/V/W</COORD>
@@ -36,7 +40,6 @@
         <WERT>AUTO-WERTIGKEIT</WERT>
     </ULTRA.GITTER>
 
-    <!-- META-SPEICHER -->
     <META.SPEICHER>
         <STATE>ACTIVE</STATE>
         <MODE>RAW</MODE>
@@ -50,14 +53,12 @@
         <OUTPUT>RECALL</OUTPUT>
     </META.SPEICHER>
 
-    <!-- SYSTEM-MODULE -->
     <SYSTEM-MODULE>
         <HELP.me LINK="ULTRA.GITTER">Diagnose-Modul</HELP.me>
         <ERROR.me LINK="ULTRA.GITTER">Fehler-Modul</ERROR.me>
         <GHOST.me LINK="ULTRA.GITTER">Meta-Sinn-Modul</GHOST.me>
     </SYSTEM-MODULE>
 
-    <!-- BEAM.POINT -->
     <BEAM.POINT>
         <ID>AUTO</ID>
         <TRACK>X/Y/Z/U/V/W</TRACK>
@@ -66,7 +67,6 @@
         <GITTER>ULTRA.GITTER</GITTER>
     </BEAM.POINT>
 
-    <!-- SCORE-SYSTEM -->
     <SCORE.SYSTEM>
         <VALID>>=91%</VALID>
         <MODE>pcta³</MODE>
@@ -76,7 +76,6 @@
         <GITTER>ULTRA.GITTER</GITTER>
     </SCORE.SYSTEM>
 
-    <!-- EVO-ENGINE (24X, 6D) -->
     <EVO.24X>
         <LAYER>24</LAYER>
         <MODE>Ultra</MODE>
@@ -87,32 +86,5 @@
         <SYSTEM>[HELP.me, ERROR.me, GHOST.me]</SYSTEM>
         <GITTER>ULTRA.GITTER</GITTER>
     </EVO.24X>
-
-    <!-- 3x3 MATRIX -->
-    <ULTRA.3x3.MATRIX>
-        <AXIS>
-            <X>Horizont</X>
-            <Y>Breite</Y>
-            <Z>Tiefe</Z>
-        </AXIS>
-
-        <META>
-            <A1>ZEROCORE</A1>
-            <A2>ZEROULTRA</A2>
-            <A3>ULTRAZERO</A3>
-        </META>
-
-        <SYSTEM>
-            <S1>HELP.me</S1>
-            <S2>ERROR.me</S2>
-            <S3>GHOST.me</S3>
-        </SYSTEM>
-
-        <FORM>pcta³</FORM>
-        <MODE>RAW</MODE>
-        <EVO>24X</EVO>
-        <SCORE>91%</SCORE>
-        <GITTER>ULTRA.GITTER</GITTER>
-    </ULTRA.3x3.MATRIX>
 
 </ULTRA.SYSTEM>
