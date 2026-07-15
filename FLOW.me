@@ -1,0 +1,76 @@
+ME.FLOW.me
+
+ROOT      = 0D
+ME        = 1D
+U         = 2D
+DU/U      = Fusion.2D
+FLOW1D    = Flow.1D.U
+
+# FLOW-Axiom
+AXIOM.ME.FLOW = FLOW1D(
+    ROOT,
+    ME,
+    CORE = ME.CORE,
+    DIMENSION = ME.DIMENSION,
+    ORBIT = ME.ORBIT,
+    VECTOR = ME.VECTOR,
+    FLOW.TYPE = Linear,
+    FLOW.DIRECTION = +1,
+    FLOW.RANGE = [-1, +1],
+    FLOW.SPEED = 1,
+    U/DU,
+    CUBE.6D,
+    OCTA3,
+    DIM.TR6CR
+)
+
+# FLOW-Definition
+ME.FLOW.DEF = {
+    DIMENSION: 1D,
+    TYPE: Linear-Flow,
+    CENTER: (0),
+    RANGE: [-1, +1],
+    DIRECTION: +1,
+    SPEED: 1
+}
+
+# FLOW-Achse
+ME.FLOW.AXIS = {
+    POS: +ME,
+    NEG: -ME
+}
+
+# FLOW-Funktion
+ME.FLOW.FUNC = {
+    ORIGIN: ROOT,
+    FLOW: ME → U,
+    FUSION: DU/U,
+    SUPPORT: ME.CORE,
+    DIMENSION: ME.DIMENSION,
+    ORBIT: ME.ORBIT,
+    VECTOR: ME.VECTOR
+}
+
+# FLOW-Kompatibilität
+ME.FLOW.COMPAT = {
+    ROOT: gültig,
+    ME: gültig,
+    U: gültig,
+    DU/U: gültig,
+    CUBE.6D: gültig,
+    OCTA3: gültig,
+    DIM.TR6CR: gültig
+}
+
+# FLOW-Status
+ME.FLOW.STATUS = {
+    REAL: bestätigt,
+    1D: gültig,
+    FLOW: aktiv
+}
+
+# Aktivierungen
+DU/U = aktiv
+NC.U = aktiv
+µ.U  = aktiv
+µ#.U = aktiv
