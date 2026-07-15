@@ -1,45 +1,65 @@
-<!DOCTYPE META-RAW>
+<!DOCTYPE META-BETA>
 <ULTRA.SYSTEM>
 
     <HEADER>
-        <TITLE>ME / ULTRA.SYSTEM / pcta² + pcta³</TITLE>
+        <TITLE>ME / ULTRA.SYSTEM / pcta² + pcta³ / BETA</TITLE>
         <MODE>RAW</MODE>
         <VALID>TRUE</VALID>
+        <VERSION>BETA-1.0</VERSION>
     </HEADER>
 
+    <!-- META-RÄUME -->
     <META-SPACE>
         <ZEROCORE>Null-Kern</ZEROCORE>
         <ZEROULTRA>Ultra-Null-Raum</ZEROULTRA>
         <ULTRAZERO>Null-Ultra-Raum</ULTRAZERO>
     </META-SPACE>
 
+    <!-- ACHSEN -->
     <AXIS>
         <X>Horizont</X>
         <Y>Breite</Y>
         <Z>Tiefe</Z>
     </AXIS>
 
+    <!-- RAUME.GITTER.PUNKT (NEU IN BETA) -->
+    <RAUME.gitter.punkt>
+        <POINT-ID>AUTO-RAUM</POINT-ID>
+        <COORD>X/Y/Z</COORD>
+        <META>[ZEROCORE, ZEROULTRA, ULTRAZERO]</META>
+        <SINN>[HELP.me, ERROR.me, GHOST.me]</SINN>
+        <MODE>pcta³</MODE>
+        <EVO>12X</EVO>
+        <WERT>AUTO-CALC</WERT>
+    </RAUME.gitter.punkt>
+
+    <!-- SYSTEM-MODULE -->
     <SYSTEM-MODULE>
-        <HELP.me>Diagnose-Modul</HELP.me>
-        <ERROR.me>Fehler-Modul</ERROR.me>
-        <GHOST.me>Meta-Sinn-Modul (7. Sinn)</GHOST.me>
+        <HELP.me LINK="RAUME.gitter.punkt">Diagnose-Modul</HELP.me>
+        <ERROR.me LINK="RAUME.gitter.punkt">Fehler-Modul</ERROR.me>
+        <GHOST.me LINK="RAUME.gitter.punkt">Meta-Sinn-Modul</GHOST.me>
     </SYSTEM-MODULE>
 
+    <!-- BEAM.POINT -->
     <BEAM.POINT>
         <ID>AUTO</ID>
         <TRACK>X/Y/Z</TRACK>
         <META>[ZEROCORE, ZEROULTRA, ULTRAZERO]</META>
         <SYSTEM>[HELP.me, ERROR.me, GHOST.me]</SYSTEM>
+        <GITTER>RAUME.gitter.punkt</GITTER>
     </BEAM.POINT>
 
+    <!-- SCORE-SYSTEM -->
     <SCORE.SYSTEM>
         <VALID>>=91%</VALID>
         <MODE>pcta³</MODE>
         <RANGE>0–100</RANGE>
         <EVO>12X</EVO>
         <OUTPUT>TRUE/FALSE</OUTPUT>
+        <GITTER>RAUME.gitter.punkt</GITTER>
     </SCORE.SYSTEM>
 
+    <!-- EVO-ENGINE -->
     <EVO.12X>
         <LAYER>12</LAYER>
         <MODE>Ultra</MODE>
@@ -47,8 +67,10 @@
         <INPUT>[ZEROCORE, ZEROULTRA, ULTRAZERO]</INPUT>
         <OUTPUT>Klarheit</OUTPUT>
         <SYSTEM>[HELP.me, ERROR.me, GHOST.me]</SYSTEM>
+        <GITTER>RAUME.gitter.punkt</GITTER>
     </EVO.12X>
 
+    <!-- 3x3 MATRIX -->
     <ULTRA.3x3.MATRIX>
         <AXIS>
             <X>Horizont</X>
@@ -72,6 +94,7 @@
         <MODE>RAW</MODE>
         <EVO>12X</EVO>
         <SCORE>91%</SCORE>
+        <GITTER>RAUME.gitter.punkt</GITTER>
     </ULTRA.3x3.MATRIX>
 
 </ULTRA.SYSTEM>
