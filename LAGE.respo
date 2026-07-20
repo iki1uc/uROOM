@@ -1,0 +1,66 @@
+# ROOM‑LAGE · ULTRA‑Lage‑Respo · Meta‑Positionsmatrix
+
+STATE   = ACTIVE
+MODE    = ULTRA-LAGE
+VERSION = 3.0-LAGE
+
+# 1. ULTRA‑Lage‑Achsen
+AXIS-X = ROOM.room
+AXIS-Y = ROOM.raw.html
+AXIS-Z = ME-NC3x3.room
+AXIS-U = ME-NC6eM6D.room
+AXIS-V = ME-NC9x9.room
+AXIS-W = META360.room
+
+# 2. ULTRA‑Meta‑Lage
+META-H = METAh.room
+META-B = METAb.room
+META-T = METAt.room
+META-2 = META2.html
+META-3 = META3.html
+
+# 3. ZERO‑Lage
+ZERO-CORE  = zero-core
+ZERO-ULTRA = zero-ultra
+ZERO-ROOM  = ultra-zero
+
+# 4. HTML‑Matrix‑Lage
+HTML-1  = 1.html
+HTML-3  = 3.html
+HTML-6  = 6.html
+HTML-9  = 9.html
+HTML-12 = 12.html
+
+# 5. ULTRA‑Chain‑Lage
+CHAIN-START = h1
+CHAIN-MID   = o6
+CHAIN-END   = win∞
+
+# 6. ULTRA‑Fusion‑Lage
+FUSION-ROOT = h1(x)
+FUSION-MID  = o9(o6(e3))
+FUSION-END  = win∞(rev1.0)
+
+# 7. OCTA³‑Lage
+OCTA-SERVER = server
+OCTA-WEB    = web
+OCTA-NET    = net
+OCTA-SCRIPT = script
+OCTA-JS     = js
+OCTA-HTML   = html
+OCTA-CSS    = css
+OCTA-DOM    = dom
+
+# 8. HELP‑Lage
+HELP-MAIN  = help.me
+HELP-ERROR = error.me
+HELP-GHOST = ghost.me
+
+# 9. PCTA³‑Lage
+PCTA-LEVEL = 24X
+RECALL     = >=91%
+
+# 10. ROOM‑LAGE‑Respo‑Status
+LAGE-STATUS = READY
+LAGE-RESPO  = ACTIVE
+LAGE-ENGINE = ULTRA3.0
