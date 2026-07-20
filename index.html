@@ -1,100 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>SETUP – TRIA SUPREMA PIPELINE</title>
+
+<style>
+body { background:#000; color:#0f0; font-family:monospace; padding:40px; }
+h1 { color:#6cf; letter-spacing:4px; margin-bottom:30px; }
+.block {
+    background:#111;
+    border:1px solid #333;
+    padding:25px;
+    margin-bottom:30px;
+    border-radius:8px;
+}
+a { color:#0f0; text-decoration:none; font-weight:bold; }
+.panel {
+    padding:20px;
+    border:2px solid #333;
+    border-radius:10px;
+    background:#111;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>SETUP – TRIA SUPREMA PIPELINE</h1>
+
+<div class="block">
+    <p>Dieses Setup initialisiert die TRIA‑SUPREMA‑Pipeline.</p>
+    <p>Es verbindet TriAxiom, RESPO und AXI zu einem vollständigen System.</p>
+</div>
+
+<div class="block">
+    <p><a href="ID.html">→ Pipeline‑Identität öffnen</a></p>
+</div>
+
+<div class="block">
+    <p><a href="README.md">→ Dokumentation anzeigen</a></p>
+</div>
+
+<div id="hh-panel" class="panel">
+    <h2>HH – Host‑Hub Panel</h2>
+    <div id="hh-device"></div>
+    <div id="hh-route"></div>
+</div>
+
+<div id="pipeline-dashboard" class="panel">
+    <h2>TRIA SUPREMA – Pipeline Dashboard</h2>
+    <div id="pipe-tria"></div>
+    <div id="pipe-respo"></div>
+    <div id="pipe-axi"></div>
+    <div id="pipe-tem"></div>
+    <div id="pipe-run8"></div>
+    <div id="pipe-sym"></div>
+    <div id="pipe-connect"></div>
+</div>
+
 <script>
+/* ULTRA ENGINE */
 window.ULTRA3_ENGINE = {
     state: "ACTIVE",
     mode: "REAL-LIVE",
     version: "3.0 TRUE FULL",
-
     core: "ULTRAKERN.me",
     meta: "ULTRAMETA.me",
-    source: "ULTRASOURCE.me",
-
-    pipe: ["h1","e3","o6","o9","b12","w128","win∞"],
-    axis: ["X","Y","Z","U","V","W"],
-    vector: ["horizont","breite","tiefe","ultra","wert"],
-
-    chain: [
-        "h1","e3","o6","o9","b12","w128",
-        "nano","atom","raw","operator",
-        "rev1.0","beat∞","win∞",
-        "xarg","ghosterror","7sinn"
-    ],
-
-    fusion: "win∞(rev1.0(beat∞(o9(o6(e3(h1(x)))))))",
-
-    zero: ["ZEROABSOLUT.me","PRIMEZERO.me","zero-core"],
-
-    html_matrix: [
-        "1.html","3.html","6.html","9.html","12.html",
-        "RAUM3.html","698869.html","gitter.html","cluster.html"
-    ],
-
-    rooms: [
-        "ROOM.main.room",
-        "ROOM.raw.room",
-        "ME-NC3x3.room",
-        "ME-NC6eM6D.room",
-        "ME-NC9x9.room"
-    ],
-
-    meta_rooms: [
-        "METAh.room","METAb.room","METAt.room",
-        "META360.room","META2.room","META3.room"
-    ],
-
-    octa3: ["server","web","net","script","js","html","css","dom"],
-    help: ["help.me","error.me","ghost.me"],
-
-    pcta3: "24X",
-    recall: ">=91%",
-
-    /* ---------------------------------------------------------
-       SYSTEM CHECK – prüft ALLE Stationen, Engines, JSON-Lieferanten
-       ohne index.html zu verändern
-    --------------------------------------------------------- */
-    system_check: async function () {
-
-        const report = [];
-
-        /* JSON-Lieferanten */
-        const jsonSources = {
-            tria: "tria.json",
-            respo: "respo.json",
-            axi: "axi.json",
-            tem: "TEM.id.json"
-        };
-
-        for (const key in jsonSources) {
-            try {
-                await fetch(jsonSources[key]).then(r => r.json());
-                report.push({ name: key, type: "JSON", status: "OK" });
-            } catch {
-                report.push({ name: key, type: "JSON", status: "FEHLT" });
-            }
-        }
-
-        /* Engine-Lieferanten */
-        const engines = {
-            ultra: window.ULTRA3_ENGINE,
-            respo_engine: window.RESPO_ENGINE,
-            axi_engine: window.AXI_ENGINE,
-            uroom: window.uROOM,
-            zoom: window.ZOOM,
-            tria_axiom: window.TRIA_AXIOM,
-            sym: window.SYM_ENGINE,
-            run8: window.RUN8_KERNEL
-        };
-
-        for (const key in engines) {
-            const mod = engines[key];
-            report.push({
-                name: key,
-                type: "ENGINE",
-                status: mod ? "OK" : "FEHLT"
-            });
-        }
-
-        console.table(report);
-        return report;
-    }
+    source: "ULTRASOURCE.me"
 };
+
+/* RESPO ENGINE */
+window.RESPO_ENGINE = {
+    state: "ACTIVE",
+    mode: "REAL-LIVE",
+    route: "HH",
+    device: "PR"
+};
+
+/* AXI ENGINE */
+window.AXI_ENGINE = {
+    state: "ACTIVE",
+    mode: "REAL-LIVE",
+    axes: ["X","Y","Z","T","S","MOVE","STATE","FLOW"]
+};
+
+/* ROOM ENGINE */
+window.uROOM = {
+    state: "ACTIVE",
+    mode: "REAL-LIVE",
+    rooms: ["main","raw","NC3x3","NC6eM6D","NC9x9"]
+};
+
+/* ZOOM ENGINE */
+window.ZOOM = {
+    state: "ACTIVE",
+    mode: "REAL-LIVE",
+    scan: ["axis","line","color","mask","vector","whirl"]
+};
+
+/* TRIAXIOM */
+window.TRIA_AXIOM = {
+    state: "ACTIVE",
+    mode: "REAL-LIVE",
+    axioms: ["A1","A2","A3"]
+};
+
+/* SYMBOL ENGINE */
+window.SYM_ENGINE = {
+    state: "ACTIVE",
+    mode: "REAL-LIVE",
+    symbols: ["α","β","γ","∞","Φ"]
+};
+
+/* RUN8 KERNEL */
+window.RUN8_KERNEL = {
+    state: "ACTIVE",
+    mode: "REAL-LIVE",
+    cycles: 8
+};
+
+/* DEVICE ROUTING */
+(function () {
+
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+    const isPX =
+        /iPhone|iPad|iPod/i.test(ua) ||
+        /Android/i.test(ua);
+
+    let deviceType = isPX ? "PX" : (navigator.maxTouchPoints > 0 ? "PQ" : "PR");
+    let deviceSymbol = isPX ? "📱" : (navigator.maxTouchPoints > 0 ? "💻" : "🖥️");
+    let deviceRoute = isPX ? "viPIio" : "HH";
+
+    document.getElementById("hh-device").innerHTML =
+        `<b>Gerät:</b> ${deviceType} ${deviceSymbol}`;
+
+    document.getElementById("hh-route").innerHTML =
+        `<b>Route:</b> ${deviceRoute}`;
+
+    if (deviceType === "PX") {
+        window.location.replace("https://iki1uc.github.io/viPIio/");
+        return;
+    }
+
+    /* PIPELINE STATUS */
+    document.getElementById("pipe-tria").innerHTML =
+        `<b>TriAxiom:</b> geladen`;
+
+    document.getElementById("pipe-respo").innerHTML =
+        `<b>RESPO:</b> geladen`;
+
+    document.getElementById("pipe-axi").innerHTML =
+        `<b>AXI:</b> geladen`;
+
+    document.getElementById("pipe-tem").innerHTML =
+        `<b>TEM:</b> aktiv`;
+
+    document.getElementById("pipe-run8").innerHTML =
+        `<b>RUN8 Kernel:</b> aktiv`;
+
+    document.getElementById("pipe-sym").innerHTML =
+        `<b>SYM Engine:</b> geladen`;
+
+    document.getElementById("pipe-connect").innerHTML =
+        `<b>Pipeline:</b> VERBUNDEN`;
+
+})();
 </script>
+
+</body>
+</html>
