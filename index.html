@@ -1,3 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>SETUP – TRIA SUPREMA PIPELINE</title>
+
+<style>
+body { background:#000; color:#0f0; font-family:monospace; padding:40px; }
+h1 { color:#6cf; letter-spacing:4px; margin-bottom:30px; }
+.block {
+    background:#111;
+    border:1px solid #333;
+    padding:25px;
+    margin-bottom:30px;
+    border-radius:8px;
+}
+a { color:#0f0; text-decoration:none; font-weight:bold; }
+.panel {
+    padding:20px;
+    border:2px solid #333;
+    border-radius:10px;
+    background:#111;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>SETUP – TRIA SUPREMA PIPELINE</h1>
+
+<div class="block">
+    <p>Dieses Setup initialisiert die TRIA‑SUPREMA‑Pipeline.</p>
+    <p>Es verbindet TriAxiom, RESPO und AXI zu einem vollständigen System.</p>
+</div>
+
+<div class="block">
+    <p><a href="ID.html">→ Pipeline‑Identität öffnen</a></p>
+</div>
+
+<div class="block">
+    <p><a href="README.md">→ Dokumentation anzeigen</a></p>
+</div>
+
+<div id="hh-panel" class="panel">
+    <h2>HH – Host‑Hub Panel</h2>
+    <div id="hh-device"></div>
+    <div id="hh-route"></div>
+</div>
+
+<div id="pipeline-dashboard" class="panel">
+    <h2>TRIA SUPREMA – Pipeline Dashboard</h2>
+    <div id="pipe-tria"></div>
+    <div id="pipe-respo"></div>
+    <div id="pipe-axi"></div>
+    <div id="pipe-tem"></div>
+    <div id="pipe-run8"></div>
+    <div id="pipe-sym"></div>
+    <div id="pipe-connect"></div>
+</div>
+
+<script>
 window.ULTRA3_ENGINE = {
     state: "ACTIVE",
     mode: "AUTO",
@@ -46,3 +108,52 @@ window.ULTRA3_ENGINE = {
     pcta3: "24X",
     recall: ">=91%"
 };
+
+(async function () {
+
+    /* DEVICE ROUTING */
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+    const isPX =
+        /iPhone|iPad|iPod/i.test(ua) ||
+        /Android/i.test(ua);
+
+    let deviceType = isPX ? "PX" : (navigator.maxTouchPoints > 0 ? "PQ" : "PR");
+    let deviceSymbol = isPX ? "📱" : (navigator.maxTouchPoints > 0 ? "💻" : "🖥️");
+    let deviceRoute = isPX ? "viPIio" : "HH";
+
+    document.getElementById("hh-device").innerHTML =
+        `<b>Gerät:</b> ${deviceType} ${deviceSymbol}`;
+
+    document.getElementById("hh-route").innerHTML =
+        `<b>Route:</b> ${deviceRoute}`;
+
+    if (deviceType === "PX") {
+        window.location.replace("https://iki1uc.github.io/viPIio/");
+        return;
+    }
+
+    /* PIPELINE DASHBOARD */
+    const safeLoad = async (file) => {
+        try { return await fetch(file).then(r => r.json()); }
+        catch { return null; }
+    };
+
+    const tria = await safeLoad("tria.json");
+    const respo = await safeLoad("respo.json");
+    const axi  = await safeLoad("axi.json");
+    const tem  = await safeLoad("TEM.id.json");
+
+    const run8Ready = true;
+    const symReady = true;
+
+    const connected = tria && respo && axi;
+
+    document.getElementById("pipe-tria").innerHTML =
+        `<b>TriAxiom:</b> ${tria ? "geladen" : "fehlt"}`;
+
+    document.getElementById("pipe-respo").innerHTML =
+        `<b>RESPO:</b> ${respo ? "geladen" : "fehlt"}`;
+
+    document.getElementById("pipe-axi").innerHTML =
+        `<b>AXI:</b> ${axi ? "geladen" : "
