@@ -1,0 +1,61 @@
+CH_SCAN.respo = {
+
+  mode        : "ANALYSE",
+  type        : "STATIC",
+  version     : "ULTRA3.0-SAFE",
+
+  // Scan-Ziel: alle Dateien im uROOM-System
+  scan_target : [
+    "ROOM.room", "ROOM.raw", "EDIT.room", "RAW.me",
+    "API.room", "GPU.room", "JS.room", "HTML.room",
+    "NET.room", "SERVER.room", "WURM.in.room", "WURM.out.room",
+    "ME-NC3×3.room", "ME-NC6eM6D.room", "ME-NC9×9.room",
+    "META.me", "METAABSOLUT.me", "META360°.room",
+    "ROOT.me", "SOURCE.me", "SYSTEM.me", "VECTOR.me",
+    "ALLRAUM.me", "UNIVERSE.me", "MULTIVERS.me"
+  ],
+
+  // Bewertung: rein textuell, keine Ausführung
+  evaluate : {
+    empty_files        : "finden",
+    duplicate_files    : "finden",
+    unused_rooms       : "finden",
+    broken_links       : "finden",
+    meta_conflicts     : "finden",
+    zero_conflicts     : "finden",
+    ultra_conflicts    : "finden",
+    raw_conflicts      : "finden",
+    nc_conflicts       : "finden"
+  },
+
+  // Sicherheit: keine Engine, keine Ausführung
+  safety : {
+    execute_nothing    : true,
+    no_runtime         : true,
+    no_engine          : true,
+    no_script          : true,
+    no_html_action     : true,
+    no_dom_action      : true,
+    no_system_change   : true,
+    no_external_call   : true
+  },
+
+  // Ergebnis: rein statische Listen
+  output : {
+    delete_candidates  : [],
+    keep_candidates    : [],
+    conflict_map       : [],
+    empty_map          : [],
+    meta_map           : [],
+    zero_map           : [],
+    ultra_map          : []
+  },
+
+  // Meta-Information
+  meta : {
+    author     : "uROOM",
+    system     : "ULTRA3.0",
+    safe_level : "ABSOLUT",
+    risk       : "ZERO"
+  }
+}
