@@ -45,6 +45,56 @@ window.ULTRA3_ENGINE = {
     help: ["help.me","error.me","ghost.me"],
 
     pcta3: "24X",
-    recall: ">=91%"
+    recall: ">=91%",
+
+    /* ---------------------------------------------------------
+       SYSTEM CHECK – prüft ALLE Stationen, Engines, JSON-Lieferanten
+       ohne index.html zu verändern
+    --------------------------------------------------------- */
+    system_check: async function () {
+
+        const report = [];
+
+        /* JSON-Lieferanten */
+        const jsonSources = {
+            tria: "tria.json",
+            respo: "respo.json",
+            axi: "axi.json",
+            tem: "TEM.id.json"
+        };
+
+        for (const key in jsonSources) {
+            try {
+                await fetch(jsonSources[key]).then(r => r.json());
+                report.push({ name: key, type: "JSON", status: "OK" });
+            } catch {
+                report.push({ name: key, type: "JSON", status: "FEHLT" });
+            }
+        }
+
+        /* Engine-Lieferanten */
+        const engines = {
+            ultra: window.ULTRA3_ENGINE,
+            respo_engine: window.RESPO_ENGINE,
+            axi_engine: window.AXI_ENGINE,
+            uroom: window.uROOM,
+            zoom: window.ZOOM,
+            tria_axiom: window.TRIA_AXIOM,
+            sym: window.SYM_ENGINE,
+            run8: window.RUN8_KERNEL
+        };
+
+        for (const key in engines) {
+            const mod = engines[key];
+            report.push({
+                name: key,
+                type: "ENGINE",
+                status: mod ? "OK" : "FEHLT"
+            });
+        }
+
+        console.table(report);
+        return report;
+    }
 };
 </script>
