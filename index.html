@@ -2,172 +2,521 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>SETUP – TRIA SUPREMA PIPELINE</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>uROOM · MACHER ROOM · iki1uc</title>
 <style>
-body { background:#000; color:#0f0; font-family:monospace; padding:40px; }
-h1 { color:#6cf; letter-spacing:4px; margin-bottom:30px; }
-.block {
-    background:#111;
-    border:1px solid #333;
-    padding:25px;
-    margin-bottom:30px;
-    border-radius:8px;
-}
-a { color:#0f0; text-decoration:none; font-weight:bold; }
-.panel {
-    padding:20px;
-    border:2px solid #333;
-    border-radius:10px;
-    background:#111;
-    margin-top:20px;
-}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#000;color:#c8d8e8;
+    font-family:'Consolas','Courier New',monospace;font-size:13px;overflow:hidden}
+
+  #room{display:grid;grid-template-rows:32px 1fr 24px;height:100%}
+
+  #top{background:#0055aa;color:#fff;display:flex;align-items:center;
+    padding:0 14px;font-size:11px;letter-spacing:2px;gap:14px}
+  #top b{color:#f0d080}
+  #top .right{margin-left:auto;display:flex;gap:14px;font-size:10px;color:#a8c8d8}
+
+  #main{display:grid;grid-template-columns:220px 1fr 260px;
+    gap:2px;background:#000;overflow:hidden;min-height:0}
+
+  .col{background:#0a0a12;display:flex;flex-direction:column;
+    overflow:hidden;min-height:0}
+  .col h2{background:#0c1828;color:#5cf0ff;font-size:11px;padding:4px 10px;
+    letter-spacing:1px;font-weight:normal;flex-shrink:0;
+    display:flex;justify-content:space-between;align-items:center}
+  .col h2 b{color:#f0d080}
+  .body{flex:1;overflow:auto;padding:8px;font-size:12px;line-height:1.55}
+  .body::-webkit-scrollbar{width:6px}
+  .body::-webkit-scrollbar-thumb{background:#2a3a4a}
+
+  /* Räume links */
+  .room-item{display:flex;gap:8px;padding:6px 8px;cursor:pointer;
+    border-left:2px solid transparent;border-radius:3px;font-size:11.5px;
+    transition:.15s}
+  .room-item:hover{background:rgba(92,240,255,.06);border-left-color:#5cf0ff}
+  .room-item.on{background:rgba(92,240,255,.12);border-left-color:#5cf0ff;color:#5cf0ff}
+  .room-item .ic{color:#5cf0ff;width:14px}
+  .room-item .nm{flex:1}
+  .room-item .st{color:#5a7288;font-size:9.5px}
+
+  /* Canvas Mitte */
+  #stage{position:relative;background:#000;display:flex;
+    align-items:center;justify-content:center;overflow:hidden}
+  #canvas{display:block}
+  .stage-info{position:absolute;top:12px;left:14px;
+    font-size:10px;color:#5a7288;letter-spacing:2px}
+  .stage-info b{color:#f0d080}
+  .stage-legend{position:absolute;bottom:12px;left:14px;
+    font-size:9.5px;color:#4a5a6a;display:flex;gap:14px}
+  .stage-legend span b{color:#5cf0ff}
+
+  /* Rechte Spalte */
+  .panel{background:#0a0a12;border-top:1px solid #1a2a3a;
+    padding:8px;font-size:11px}
+  .panel:first-child{border-top:none}
+  .row{display:flex;justify-content:space-between;padding:2px 0;
+    border-bottom:1px dashed #1a2a3a;font-size:10.5px}
+  .row:last-child{border-bottom:none}
+  .row .k{color:#5a7288}
+  .row .v{color:#f0d080;font-weight:bold}
+  .row .v.ok{color:#0f0}
+  .row .v.warn{color:#f0d080}
+  .row .v.err{color:#f55}
+
+  #bottom{background:#0c1828;color:#5a7288;font-size:10.5px;
+    padding:0 14px;display:flex;align-items:center;gap:16px;
+    border-top:1px solid #1a2a3a}
+  #bottom b{color:#f0d080}
+
+  .cli-line{padding:2px 0;font-size:11px;display:flex;gap:6px;
+    word-break:break-word}
+  .cli-line .t{color:#0ff;flex-shrink:0}
+  .cli-line .m{flex:1}
+  .cli-line.ok .m{color:#0f0}
+  .cli-line.warn .m{color:#f0d080}
+  .cli-line.err .m{color:#f55}
+  .cli-line.info .m{color:#5cf0ff}
+  #cmdRow{background:#000;border-top:1px solid #0c1828;
+    padding:4px 8px;display:flex;gap:6px;flex-shrink:0}
+  #cmdRow span{color:#0ff}
+  #cmd{background:#000;color:#0f0;font-family:inherit;font-size:11.5px;
+    border:none;outline:none;flex:1;caret-color:#0f0}
 </style>
 </head>
-
 <body>
 
-<h1>SETUP – TRIA SUPREMA PIPELINE</h1>
+<div id="room">
+  <div id="top">
+    <span>◈ <b>uROOM</b> · MACHER ROOM</span>
+    <span>iki1uc</span>
+    <span class="right">
+      <span>ROOM <b id="topRoom">main</b></span>
+      <span>STATE <b id="topState">ACTIVE</b></span>
+      <span>MODE <b id="topMode">REAL-LIVE</b></span>
+      <span id="clock">--:--:--</span>
+    </span>
+  </div>
 
-<div class="block">
-    <p>Dieses Setup initialisiert die TRIA‑SUPREMA‑Pipeline.</p>
-    <p>Es verbindet TriAxiom, RESPO und AXI zu einem vollständigen System.</p>
-</div>
+  <div id="main">
+    <div class="col">
+      <h2><span>◈ RÄUME</span><b id="roomCount">5</b></h2>
+      <div class="body" id="rooms"></div>
+    </div>
 
-<div class="block">
-    <p><a href="ID.html">→ Pipeline‑Identität öffnen</a></p>
-</div>
+    <div id="stage">
+      <canvas id="canvas" width="800" height="600"></canvas>
+      <div class="stage-info">
+        uROOM · <b id="stageRoom">main</b> · <span id="stageObj">0 objekte</span>
+      </div>
+      <div class="stage-legend">
+        <span>◉ Ursprung</span>
+        <span><b>3 · 9</b> Weg</span>
+        <span>◎ Mitte</span>
+        <span>↺ Loop</span>
+      </div>
+    </div>
 
-<div class="block">
-    <p><a href="README.md">→ Dokumentation anzeigen</a></p>
-</div>
+    <div class="col">
+      <div class="panel">
+        <div class="row"><span class="k">ROOM</span><span class="v" id="sRoom">main</span></div>
+        <div class="row"><span class="k">STATE</span><span class="v ok" id="sState">ACTIVE</span></div>
+        <div class="row"><span class="k">MODE</span><span class="v" id="sMode">REAL-LIVE</span></div>
+        <div class="row"><span class="k">DEVICE</span><span class="v" id="sDevice">—</span></div>
+        <div class="row"><span class="k">ROUTE</span><span class="v" id="sRoute">HH</span></div>
+      </div>
 
-<div id="hh-panel" class="panel">
-    <h2>HH – Host‑Hub Panel</h2>
-    <div id="hh-device"></div>
-    <div id="hh-route"></div>
-</div>
+      <div class="panel">
+        <div class="row"><span class="k">CUBE</span><span class="v ok" id="sCube">ready</span></div>
+        <div class="row"><span class="k">TRIA</span><span class="v ok" id="sTria">A1·A2·A3</span></div>
+        <div class="row"><span class="k">RESPO</span><span class="v ok" id="sRespo">aktiv</span></div>
+        <div class="row"><span class="k">AXI</span><span class="v ok" id="sAxi">8 achsen</span></div>
+        <div class="row"><span class="k">RUN8</span><span class="v" id="sRun8">8</span></div>
+        <div class="row"><span class="k">SYM</span><span class="v" id="sSym">α β γ ∞ Φ</span></div>
+      </div>
 
-<div id="pipeline-dashboard" class="panel">
-    <h2>TRIA SUPREMA – Pipeline Dashboard</h2>
-    <div id="pipe-tria"></div>
-    <div id="pipe-respo"></div>
-    <div id="pipe-axi"></div>
-    <div id="pipe-tem"></div>
-    <div id="pipe-run8"></div>
-    <div id="pipe-sym"></div>
-    <div id="pipe-connect"></div>
+      <h2 style="background:#0c1828;color:#5cf0ff;font-size:11px;
+        padding:4px 10px;letter-spacing:1px;font-weight:normal;
+        display:flex;justify-content:space-between">
+        <span>◈ LOG</span><b id="logCount" style="color:#f0d080">0</b>
+      </h2>
+      <div class="body" id="log" style="flex:1"></div>
+      <div id="cmdRow"><span>room&gt;</span>
+        <input id="cmd" placeholder="help · go <room> · scan · state" autocomplete="off" autofocus>
+      </div>
+    </div>
+  </div>
+
+  <div id="bottom">
+    <span>◈ uROOM · iki1uc</span>
+    <span><b>5 Räume</b> · main · raw · NC3x3 · NC6eM6D · NC9x9</span>
+    <span style="margin-left:auto">© iki1uc</span>
+  </div>
 </div>
 
 <script>
-/* ULTRA ENGINE */
-window.ULTRA3_ENGINE = {
-    state: "ACTIVE",
-    mode: "REAL-LIVE",
-    version: "3.0 TRUE FULL",
-    core: "ULTRAKERN.me",
-    meta: "ULTRAMETA.me",
-    source: "ULTRASOURCE.me"
+"use strict";
+/* ═══════════════════════════════════════════════════════════════
+   uROOM · MACHER ROOM
+   © iki1uc
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── ENGINES ────────────────────────────────────────────── */
+window.ULTRA3_ENGINE = { state:"ACTIVE", mode:"REAL-LIVE", version:"3.0",
+  core:"ULTRAKERN.me", meta:"ULTRAMETA.me", source:"ULTRASOURCE.me" };
+window.RESPO_ENGINE  = { state:"ACTIVE", mode:"REAL-LIVE", route:"HH", device:"PR" };
+window.AXI_ENGINE    = { state:"ACTIVE", mode:"REAL-LIVE",
+  axes:["X","Y","Z","T","S","MOVE","STATE","FLOW"] };
+window.ZOOM          = { state:"ACTIVE", mode:"REAL-LIVE",
+  scan:["axis","line","color","mask","vector","whirl"] };
+window.TRIA_AXIOM    = { state:"ACTIVE", mode:"REAL-LIVE", axioms:["A1","A2","A3"] };
+window.SYM_ENGINE    = { state:"ACTIVE", mode:"REAL-LIVE", symbols:["α","β","γ","∞","Φ"] };
+window.RUN8_KERNEL   = { state:"ACTIVE", mode:"REAL-LIVE", cycles:8 };
+
+/* ─── RÄUME ──────────────────────────────────────────────── */
+const ROOMS = {
+  main:    { label:"main",       ic:"◉", desc:"der hauptraum",       state:"ACTIVE",    objects:0, color:"#f0d080" },
+  raw:     { label:"raw",        ic:"◇", desc:"rohe daten",          state:"ACTIVE",    objects:0, color:"#5cf0ff" },
+  NC3x3:   { label:"NC3x3",      ic:"▲", desc:"3×3 · kader",         state:"ACTIVE",    objects:9, color:"#39ff88" },
+  NC6eM6D: { label:"NC6eM6D",    ic:"◆", desc:"6e × 6D · würfel",    state:"ACTIVE",    objects:36, color:"#b388ff" },
+  NC9x9:   { label:"NC9x9",      ic:"◎", desc:"9×9 · matrix",        state:"ACTIVE",    objects:81, color:"#ff8a2a" }
 };
 
-/* RESPO ENGINE */
-window.RESPO_ENGINE = {
-    state: "ACTIVE",
-    mode: "REAL-LIVE",
-    route: "HH",
-    device: "PR"
+/* ─── uROOM ──────────────────────────────────────────────── */
+const uROOM = {
+  state: "ACTIVE",
+  mode: "REAL-LIVE",
+  activeRoom: "main",
+  tick: 0,
+  logs: []
 };
 
-/* AXI ENGINE */
-window.AXI_ENGINE = {
-    state: "ACTIVE",
-    mode: "REAL-LIVE",
-    axes: ["X","Y","Z","T","S","MOVE","STATE","FLOW"]
+/* ─── STATE ──────────────────────────────────────────────── */
+const R = {
+  device: "PR",
+  deviceSymbol: "🖥️",
+  route: "HH"
 };
 
-/* ROOM ENGINE */
-window.uROOM = {
-    state: "ACTIVE",
-    mode: "REAL-LIVE",
-    rooms: ["main","raw","NC3x3","NC6eM6D","NC9x9"]
-};
+/* ─── DEVICE ROUTING ─────────────────────────────────────── */
+(function detectDevice() {
+  const ua = navigator.userAgent || "";
+  const isPX = /iPhone|iPad|iPod/i.test(ua) || /Android/i.test(ua);
+  R.device = isPX ? "PX" : (navigator.maxTouchPoints > 0 ? "PQ" : "PR");
+  R.deviceSymbol = isPX ? "📱" : (navigator.maxTouchPoints > 0 ? "💻" : "🖥️");
+  R.route = isPX ? "viPIio" : "HH";
 
-/* ZOOM ENGINE */
-window.ZOOM = {
-    state: "ACTIVE",
-    mode: "REAL-LIVE",
-    scan: ["axis","line","color","mask","vector","whirl"]
-};
+  document.getElementById("sDevice").textContent = R.device + " " + R.deviceSymbol;
+  document.getElementById("sRoute").textContent = R.route;
 
-/* TRIAXIOM */
-window.TRIA_AXIOM = {
-    state: "ACTIVE",
-    mode: "REAL-LIVE",
-    axioms: ["A1","A2","A3"]
-};
-
-/* SYMBOL ENGINE */
-window.SYM_ENGINE = {
-    state: "ACTIVE",
-    mode: "REAL-LIVE",
-    symbols: ["α","β","γ","∞","Φ"]
-};
-
-/* RUN8 KERNEL */
-window.RUN8_KERNEL = {
-    state: "ACTIVE",
-    mode: "REAL-LIVE",
-    cycles: 8
-};
-
-/* DEVICE ROUTING */
-(function () {
-
-    const ua = navigator.userAgent || navigator.vendor || window.opera;
-
-    const isPX =
-        /iPhone|iPad|iPod/i.test(ua) ||
-        /Android/i.test(ua);
-
-    let deviceType = isPX ? "PX" : (navigator.maxTouchPoints > 0 ? "PQ" : "PR");
-    let deviceSymbol = isPX ? "📱" : (navigator.maxTouchPoints > 0 ? "💻" : "🖥️");
-    let deviceRoute = isPX ? "viPIio" : "HH";
-
-    document.getElementById("hh-device").innerHTML =
-        `<b>Gerät:</b> ${deviceType} ${deviceSymbol}`;
-
-    document.getElementById("hh-route").innerHTML =
-        `<b>Route:</b> ${deviceRoute}`;
-
-    if (deviceType === "PX") {
-        window.location.replace("https://iki1uc.github.io/viPIio/");
-        return;
-    }
-
-    /* PIPELINE STATUS */
-    document.getElementById("pipe-tria").innerHTML =
-        `<b>TriAxiom:</b> geladen`;
-
-    document.getElementById("pipe-respo").innerHTML =
-        `<b>RESPO:</b> geladen`;
-
-    document.getElementById("pipe-axi").innerHTML =
-        `<b>AXI:</b> geladen`;
-
-    document.getElementById("pipe-tem").innerHTML =
-        `<b>TEM:</b> aktiv`;
-
-    document.getElementById("pipe-run8").innerHTML =
-        `<b>RUN8 Kernel:</b> aktiv`;
-
-    document.getElementById("pipe-sym").innerHTML =
-        `<b>SYM Engine:</b> geladen`;
-
-    document.getElementById("pipe-connect").innerHTML =
-        `<b>Pipeline:</b> VERBUNDEN`;
-
+  if (isPX) {
+    setTimeout(() => { window.location.href = "https://iki1uc.github.io/viPIio/"; }, 1500);
+  }
 })();
-</script>
 
+/* ─── LOG ────────────────────────────────────────────────── */
+function log(msg, cls = "") {
+  const el = document.getElementById("log");
+  const t = new Date().toLocaleTimeString("de-DE");
+  const div = document.createElement("div");
+  div.className = "cli-line " + cls;
+  div.innerHTML = `<span class="t">${t}</span><span class="m">${msg}</span>`;
+  el.appendChild(div);
+  el.scrollTop = el.scrollHeight;
+  while (el.children.length > 200) el.removeChild(el.firstChild);
+  uROOM.logs.push({ t, msg, cls });
+  document.getElementById("logCount").textContent = uROOM.logs.length;
+}
+
+/* ─── ROOMS UI ───────────────────────────────────────────── */
+function buildRooms() {
+  const el = document.getElementById("rooms");
+  el.innerHTML = "";
+  for (const [key, room] of Object.entries(ROOMS)) {
+    const d = document.createElement("div");
+    d.className = "room-item" + (key === uROOM.activeRoom ? " on" : "");
+    d.dataset.key = key;
+    d.innerHTML = `
+      <span class="ic">${room.ic}</span>
+      <span class="nm">${room.label}</span>
+      <span class="st">${room.state === "ACTIVE" ? "●" : "○"}</span>`;
+    d.onclick = () => goRoom(key);
+    el.appendChild(d);
+  }
+}
+
+function goRoom(key) {
+  if (!ROOMS[key]) { log("⚠ raum unbekannt: " + key, "err"); return; }
+  uROOM.activeRoom = key;
+  document.querySelectorAll(".room-item").forEach(el =>
+    el.classList.toggle("on", el.dataset.key === key));
+  document.getElementById("topRoom").textContent = key;
+  document.getElementById("stageRoom").textContent = key;
+  document.getElementById("sRoom").textContent = key;
+  document.getElementById("stageObj").textContent = ROOMS[key].objects + " objekte";
+  renderScene();
+  log(`◈ raum gewechselt → ${ROOMS[key].label} · ${ROOMS[key].desc}`, "info");
+}
+
+/* ─── CANVAS ─────────────────────────────────────────────── */
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+let W = 800, H = 600;
+
+function resizeCanvas() {
+  const stage = document.getElementById("stage");
+  const r = stage.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  W = r.width; H = r.height;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + "px";
+  canvas.style.height = H + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+window.addEventListener("resize", () => { resizeCanvas(); renderScene(); });
+
+function renderScene() {
+  const room = ROOMS[uROOM.activeRoom];
+  const cx = W/2, cy = H/2;
+  const t = uROOM.tick;
+
+  ctx.fillStyle = "#000";
+  ctx.fillRect(0, 0, W, H);
+
+  // Sternenstaub-Hintergrund
+  for (let i = 0; i < 40; i++) {
+    const x = ((i * 137) % W);
+    const y = ((i * 91) % H);
+    const a = 0.05 + Math.sin(t*0.02 + i) * 0.03;
+    ctx.fillStyle = `rgba(92,240,255,${a})`;
+    ctx.fillRect(x, y, 1, 1);
+  }
+
+  // Raum-spezifische Darstellung
+  if (uROOM.activeRoom === "NC9x9") {
+    // 9×9 Matrix
+    const s = Math.min(W, H) * 0.6;
+    const cell = s / 9;
+    const ox = cx - s/2, oy = cy - s/2;
+    for (let r = 0; r < 9; r++) {
+      for (let c = 0; c < 9; c++) {
+        const idx = r*9 + c;
+        const pulse = 0.4 + Math.sin(t*0.05 + idx*0.1) * 0.3;
+        ctx.fillStyle = `rgba(255,138,42,${pulse*0.4})`;
+        ctx.fillRect(ox + c*cell + 1, oy + r*cell + 1, cell-2, cell-2);
+        ctx.strokeStyle = `rgba(240,208,128,${pulse*0.6})`;
+        ctx.lineWidth = 0.5;
+        ctx.strokeRect(ox + c*cell + 1, oy + r*cell + 1, cell-2, cell-2);
+      }
+    }
+    // Mitte
+    ctx.fillStyle = "rgba(240,208,128,0.9)";
+    ctx.beginPath();
+    ctx.arc(cx, cy, 5, 0, Math.PI*2);
+    ctx.fill();
+  }
+  else if (uROOM.activeRoom === "NC6eM6D") {
+    // 6×6
+    const s = Math.min(W, H) * 0.55;
+    const cell = s / 6;
+    const ox = cx - s/2, oy = cy - s/2;
+    for (let r = 0; r < 6; r++) {
+      for (let c = 0; c < 6; c++) {
+        const idx = r*6 + c;
+        const pulse = 0.3 + Math.sin(t*0.06 + idx*0.15) * 0.4;
+        ctx.fillStyle = `rgba(179,136,255,${pulse*0.5})`;
+        ctx.beginPath();
+        ctx.arc(ox + c*cell + cell/2, oy + r*cell + cell/2, cell*0.28, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+  }
+  else if (uROOM.activeRoom === "NC3x3") {
+    // 3×3
+    const s = Math.min(W, H) * 0.5;
+    const cell = s / 3;
+    const ox = cx - s/2, oy = cy - s/2;
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 3; c++) {
+        const idx = r*3 + c;
+        const pulse = 0.4 + Math.sin(t*0.08 + idx*0.3) * 0.4;
+        ctx.strokeStyle = `rgba(57,255,136,${pulse})`;
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(ox + c*cell + 8, oy + r*cell + 8, cell-16, cell-16);
+      }
+    }
+  }
+  else if (uROOM.activeRoom === "raw") {
+    // Rohe Daten — fallende Zeichen
+    ctx.font = "13px monospace";
+    ctx.fillStyle = "rgba(92,240,255,0.4)";
+    const chars = "01◈◆◇▣△◎◉↺";
+    for (let i = 0; i < 60; i++) {
+      const x = (i * 23) % W;
+      const y = ((i * 47 + t*2) % H);
+      ctx.fillText(chars[i % chars.length], x, y);
+    }
+  }
+  else {
+    // main — die Formel ◉ → 3·9 → ◎ → 3·9 → ◎ → 81·◆ → △ → 27·▣ → 3↺
+    const pulse = 0.5 + Math.sin(t*0.04) * 0.3;
+    const R0 = Math.min(W, H) * 0.35;
+
+    // Ring
+    ctx.strokeStyle = `rgba(240,208,128,${pulse*0.3})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R0, 0, Math.PI*2);
+    ctx.stroke();
+
+    // Knoten
+    const nodes = [
+      { y: -R0, s: "◉", c: "#f0d080" },
+      { y: -R0*0.6, s: "3", c: "#5cf0ff" },
+      { y: -R0*0.6, s: "9", c: "#5cf0ff" },
+      { y: 0, s: "◎", c: "#39ff88" },
+      { y: R0*0.3, s: "81", c: "#ff8a2a" },
+      { y: R0*0.3, s: "◆", c: "#ff8a2a" },
+      { y: R0*0.6, s: "△", c: "#b388ff" },
+      { y: R0*0.6, s: "27", c: "#b388ff" },
+      { y: R0*0.85, s: "3↺", c: "#f0d080" }
+    ];
+    let nIdx = 0;
+    const angles = [-Math.PI/2, -Math.PI/3, -Math.PI*2/3, 0, Math.PI/4, -Math.PI/4, Math.PI/3, Math.PI*2/3, Math.PI/2];
+    nodes.forEach((n, i) => {
+      const a = angles[i];
+      const x = cx + Math.cos(a) * R0 * 0.7;
+      const y = cy + Math.sin(a) * R0 * 0.7;
+      const glow = 0.6 + Math.sin(t*0.06 + i) * 0.4;
+      ctx.fillStyle = n.c;
+      ctx.shadowColor = n.c;
+      ctx.shadowBlur = glow * 12;
+      ctx.font = (i === 0 || i === 3) ? "22px monospace" : "16px monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(n.s, x, y);
+      ctx.shadowBlur = 0;
+    });
+
+    // Zentrum
+    ctx.fillStyle = "rgba(240,208,128,0.9)";
+    ctx.beginPath();
+    ctx.arc(cx, cy, 4 + Math.sin(t*0.1)*2, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Objekt-Zahl
+  document.getElementById("stageObj").textContent = room.objects + " objekte";
+
+  uROOM.tick++;
+  requestAnimationFrame(renderScene);
+}
+
+/* ─── CLI ────────────────────────────────────────────────── */
+const cmdInput = document.getElementById("cmd");
+cmdInput.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter") return;
+  const v = cmdInput.value.trim();
+  cmdInput.value = "";
+  if (!v) return;
+  log("room> " + v, "");
+  runCmd(v);
+});
+
+function runCmd(input) {
+  const [cmd, ...args] = input.split(/\s+/);
+  const c = cmd.toLowerCase();
+
+  switch (c) {
+    case "help":
+      log("befehle:", "ok");
+      log("  help               · diese liste");
+      log("  go <room>          · raum wechseln (main · raw · NC3x3 · NC6eM6D · NC9x9)");
+      log("  rooms              · alle räume");
+      log("  scan               · objekte im raum zählen");
+      log("  state              · uROOM zustand");
+      log("  engines            · alle engines");
+      log("  clear              · log leeren");
+      log("  whoami             · gerät + route");
+      break;
+
+    case "go":
+      if (!args[0]) { log("nutzung: go <room>", "err"); break; }
+      goRoom(args[0]);
+      break;
+
+    case "rooms":
+      log("◈ räume:", "ok");
+      for (const [k, r] of Object.entries(ROOMS)) {
+        log(`  ${r.ic} ${k.padEnd(10)} · ${r.desc} · ${r.objects} objekte`, "");
+      }
+      break;
+
+    case "scan":
+      const room = ROOMS[uROOM.activeRoom];
+      log(`◈ scan · ${uROOM.activeRoom}`, "info");
+      log(`  objekte:    ${room.objects}`, "");
+      log(`  zustand:    ${room.state}`, "");
+      log(`  beschreibung: ${room.desc}`, "");
+      break;
+
+    case "state":
+      log(`◈ uROOM · ${uROOM.state} · ${uROOM.mode}`, "ok");
+      log(`  raum:   ${uROOM.activeRoom}`, "");
+      log(`  tick:   ${uROOM.tick}`, "");
+      log(`  logs:   ${uROOM.logs.length}`, "");
+      break;
+
+    case "engines":
+      log("◈ engines:", "ok");
+      log(`  ULTRA3:    ${window.ULTRA3_ENGINE.state} · ${window.ULTRA3_ENGINE.version}`, "");
+      log(`  RESPO:     ${window.RESPO_ENGINE.state} · route ${window.RESPO_ENGINE.route}`, "");
+      log(`  AXI:       ${window.AXI_ENGINE.state} · ${window.AXI_ENGINE.axes.length} achsen`, "");
+      log(`  ZOOM:      ${window.ZOOM.state} · ${window.ZOOM.scan.length} scans`, "");
+      log(`  TRIA:      ${window.TRIA_AXIOM.state} · ${window.TRIA_AXIOM.axioms.join("·")}`, "");
+      log(`  SYM:       ${window.SYM_ENGINE.state} · ${window.SYM_ENGINE.symbols.join(" ")}`, "");
+      log(`  RUN8:      ${window.RUN8_KERNEL.state} · ${window.RUN8_KERNEL.cycles} cycles`, "");
+      break;
+
+    case "whoami":
+      log(`◈ gerät: ${R.device} ${R.deviceSymbol}`, "info");
+      log(`  route: ${R.route}`, "");
+      break;
+
+    case "clear":
+      document.getElementById("log").innerHTML = "";
+      uROOM.logs = [];
+      document.getElementById("logCount").textContent = "0";
+      break;
+
+    default:
+      log("⚠ unbekannt: " + c + " · tippe 'help'", "err");
+  }
+}
+
+/* ─── CLOCK ──────────────────────────────────────────────── */
+setInterval(() => {
+  document.getElementById("clock").textContent = new Date().toLocaleTimeString("de-DE");
+}, 1000);
+
+/* ─── INIT ───────────────────────────────────────────────── */
+resizeCanvas();
+buildRooms();
+goRoom("main");
+log("◈ uROOM · MACHER ROOM geladen", "ok");
+log("  5 räume · main · raw · NC3x3 · NC6eM6D · NC9x9", "info");
+log("  8 engines aktiv", "info");
+log("© iki1uc", "");
+log("tippe 'help' für befehle", "warn");
+
+/* Public API */
+window.uROOM = Object.assign(uROOM, {
+  go: goRoom,
+  cli: runCmd,
+  rooms: ROOMS,
+  state: () => ({ activeRoom: uROOM.activeRoom, tick: uROOM.tick, logs: uROOM.logs.length })
+});
+window.ROOM = window.uROOM;
+</script>
 </body>
 </html>
